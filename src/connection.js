@@ -77,7 +77,7 @@ async function connect() {
 
     const code = await socket.requestPairingCode(onlyNumbers(phoneNumber));
 
-    sayLog(`Código de pareamento: ${code}`);
+    sayLog(`Código de emparejamiento: ${code}`);
   }
 
   socket.ev.on("connection.update", async (update) => {
