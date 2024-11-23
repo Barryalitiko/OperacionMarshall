@@ -104,16 +104,16 @@ async function connect() {
             warningLog("Conexion de reemplazo!");
             break;
           case DisconnectReason.multideviceMismatch:
-            warningLog("Dispositivo incompatible!");
+            warningLog("Dispositivo no compatible!");
             break;
           case DisconnectReason.forbidden:
             warningLog("Conexion prohibida!");
             break;
           case DisconnectReason.restartRequired:
-            infoLog('Krampus reiniciado! Reinicia con "npm start".');
+            infoLog('Krampus reiniciado! Reinicia con "npm start"');
             break;
           case DisconnectReason.unavailableService:
-            warningLog("Servicio no disponible!");
+            warningLog("Krampus no disponible!");
             break;
         }
 
@@ -123,7 +123,7 @@ async function connect() {
     } else if (connection === "open") {
       successLog("Krampus ha sido conectado");
     } else {
-      infoLog("Actualizando conexion...");
+      infoLog("Krampus conectado...");
     }
   });
 
