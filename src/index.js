@@ -5,7 +5,7 @@ const { infoLog, bannerLog } = require("./utils/logger");
 async function start() {
   try {
     bannerLog();
-    infoLog("Kram está procesando...");
+    infoLog("La OM está procesando...");
 
     const socket = await connect();
 
