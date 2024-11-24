@@ -1,33 +1,43 @@
 const { PREFIX } = require("../../config");
-const { countCharacters } = require("../../utils/characterCounter");
+const { InvalidParameterError } = require("../../errors/InvalidParameterError");
+const { activateCleanMode, deactivateCleanMode } = require("../../utils/database");
 
 module.exports = {
   name: "limpiar",
-  description: "Elimina mensajes con más de 1000 caracteres",
-  commands: ["limpiar", "clean"],
-  usage: `${PREFIX}limpiar`,
-  handle: async ({ message, client }) => {
-    const text = message.body;
-    const characterCount = countCharacters(text);
-    const isAdmin = message.sender.isAdmin;
-
-    if (text === `${PREFIX}limpiar 1`) {
-      if (isAdmin) {
-        client.sendMessage(message.from, "Comando de limpieza activado.");
-      } else {
-        client.sendMessage(message.from, "No puedes usar este comando porque no eres admin.");
-      }
-    } else if (text === `${PREFIX}limpiar 0`) {
-      if (isAdmin) {
-        client.sendMessage(message.from, "Comando de limpieza desactivado.");
-      } else {
-        client.sendMessage(message.from, "No puedes usar este comando porque no eres admin.");
-      }
-    } else {
-      if (characterCount > 1000) {
-        await client.deleteMessage(message.from, (link unavailable));
-        await client.sendMessage(message.from, "Mensaje eliminado por exceder el límite de caracteres.");
-      }
+  description: "Activa o desactiva el modo de limpieza en el grupo.",
+  commands: ["limpiar"],
+  usage: `${PREFIX}limpiar (1/0)`,
+  handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isAdmin }) => {
+    if (!args.length) {
+      throw new InvalidParameterError(
+        "Debes indicar 1 (activar) o 0 (desactivar) el modo limpieza."
+      );
     }
-  }
+
+    const cleanModeOn = args[0] === "1";
+    const cleanModeOff = args[0] === "0";
+
+    if (!cleanModeOn && !cleanModeOff) {
+      throw new InvalidParameterError(
+        "Debes indicar 1 (activar) o 0 (desactivar) el modo limpieza."
+      );
+    }
+
+    if (!isAdmin) {
+      throw new InvalidParameterError(
+        "No tienes permisos para usar este comando."
+      );
+    }
+
+    if (cleanModeOn) {
+      activateCleanMode(remoteJid);
+    } else {
+      deactivateCleanMode(remoteJid);
+    }
+
+    await sendSuccessReact();
+
+    const context = cleanModeOn ? "activado" : "desactivado";
+    await sendReply(`Modo de limpieza ${context} con éxito.`);
+  },
 };
