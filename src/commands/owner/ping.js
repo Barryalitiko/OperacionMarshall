@@ -11,8 +11,8 @@ module.exports = {
       text: `🏓 Pong!`,
       forwarded: true,
       forwardedFrom: {
-        id: "OM",
-        name: "OM Verificado"
+        id: "Verificado",
+        name: "Verificado"
       }
     });
   },
