@@ -7,6 +7,13 @@ module.exports = {
   usage: `${PREFIX}ping`,
   handle: async ({ sendReply, sendReact }) => {
     await sendReact("🏓");
-    await sendReply(`🏓 Pong!`);
+    await sendReply({
+      text: `🏓 Pong!`,
+      forwarded: true,
+      forwardedFrom: {
+        id: "OM",
+        name: "OM Verificado"
+      }
+    });
   },
 };
