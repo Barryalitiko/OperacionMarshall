@@ -7,6 +7,8 @@ const INACTIVE_GROUPS_FILE = "inactive-groups";
 const NOT_WELCOME_GROUPS_FILE = "not-welcome-groups";
 const INACTIVE_AUTO_RESPONDER_GROUPS_FILE = "inactive-auto-responder-groups";
 const ANTI_LINK_GROUPS_FILE = "anti-link-groups";
+const FORWARD_MODE_GROUPS_FILE = "forward-mode-groups";
+
 
 function createIfNotExists(fullPath) {
   if (!fs.existsSync(fullPath)) {
@@ -190,4 +192,28 @@ exports.isActiveAntiLinkGroup = (groupId) => {
   const antiLinkGroups = readJSON(filename);
 
   return antiLinkGroups.includes(groupId);
+};
+
+exports.activateForwardModeGroup = (groupId) => {
+  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
+
+  if (!forwardModeGroups.includes(groupId)) {
+    forwardModeGroups.push(groupId);
+    writeJSON(FORWARD_MODE_GROUPS_FILE, forwardModeGroups);  
+};
+
+exports.deactivateForwardModeGroup = (groupId) => {
+  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
+
+  const index = forwardModeGroups.indexOf(groupId);
+
+  if (index !== -1) {
+    forwardModeGroups.splice(index, 1);  
+    writeJSON(FORWARD_MODE_GROUPS_FILE, forwardModeGroups);  
+  }
+};
+
+exports.isForwardModeActive = (groupId) => {
+  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
+  return forwardModeGroups.includes(groupId);  
 };
