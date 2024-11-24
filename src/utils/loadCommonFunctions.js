@@ -89,12 +89,12 @@ exports.loadCommonFunctions = ({ socket, webMessage }) => {
 
   const sendWaitReply = async (text) => {
     await sendWaitReact();
-    return await sendReply(`⏳ Espera! ${text || waitMessage}`);
+    return await sendReply(`⏳ Cargando! ${text || waitMessage}`);
   };
 
   const sendWarningReply = async (text) => {
     await sendWarningReact();
-    return await sendReply(`⚠️ Advertencia! ${text}`);
+    return await sendReply(`⚠️ Atencion! ${text}`);
   };
 
   const sendErrorReply = async (text) => {
