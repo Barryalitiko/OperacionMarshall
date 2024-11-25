@@ -7,8 +7,7 @@ const INACTIVE_GROUPS_FILE = "inactive-groups";
 const NOT_WELCOME_GROUPS_FILE = "not-welcome-groups";
 const INACTIVE_AUTO_RESPONDER_GROUPS_FILE = "inactive-auto-responder-groups";
 const ANTI_LINK_GROUPS_FILE = "anti-link-groups";
-const FORWARD_MODE_GROUPS_FILE = "forward-mode-groups";
-const CLEAN_MODE_GROUPS_FILE = "clean-mode-groups";
+const CHARACTER_COUNT = "character-count"
 
 function createIfNotExists(fullPath) {
   if (!fs.existsSync(fullPath)) {
@@ -194,49 +193,30 @@ exports.isActiveAntiLinkGroup = (groupId) => {
   return antiLinkGroups.includes(groupId);
 };
 
-exports.activateForwardModeGroup = (groupId) => {
-  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
-
-  if (!forwardModeGroups.includes(groupId)) {
-    forwardModeGroups.push(groupId);
-    writeJSON(FORWARD_MODE_GROUPS_FILE, forwardModeGroups);  
+exports.activateCharacterCountGroup = (groupId) => {
+  const characterCountGroups = readJSON(Character_count);
+  
+  if (!characterCountGroups.includes(groupId)) {
+    characterCountGroups.push(groupId);
+    
+    writeJSON(Character_count, characterCountGroups);
+  }
 };
 
-exports.deactivateForwardModeGroup = (groupId) => {
-  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
-
-  const index = forwardModeGroups.indexOf(groupId);
-
+exports.deactivateCharacterCountGroup = (groupId) => {
+  const characterCountGroups = readJSON(Character_count);
+  
+  const index = characterCountGroups.indexOf(groupId);
+  
   if (index !== -1) {
-    forwardModeGroups.splice(index, 1);  
-    writeJSON(FORWARD_MODE_GROUPS_FILE, forwardModeGroups);  
+    characterCountGroups.splice(index, 1);
+    
+    writeJSON(Character_count, characterCountGroups);
   }
 };
 
-exports.isForwardModeActive = (groupId) => {
-  const forwardModeGroups = readJSON(FORWARD_MODE_GROUPS_FILE);
-  return forwardModeGroups.includes(groupId);  
-};
-exports.activateCleanMode = (groupId) => {
-  const cleanModeGroups = readJSON(CLEAN_MODE_GROUPS_FILE);
-
-  if (!cleanModeGroups.includes(groupId)) {
-    cleanModeGroups.push(groupId);
-    writeJSON(CLEAN_MODE_GROUPS_FILE, cleanModeGroups); 
-  }
-};
-
-exports.deactivateCleanMode = (groupId) => {
-  const cleanModeGroups = readJSON(CLEAN_MODE_GROUPS_FILE);
-
-  const index = cleanModeGroups.indexOf(groupId);
-  if (index !== -1) {
-    cleanModeGroups.splice(index, 1);
-    writeJSON(CLEAN_MODE_GROUPS_FILE, cleanModeGroups); 
-  }
-};
-
-exports.isCleanModeActive = (groupId) => {
-  const cleanModeGroups = readJSON(CLEAN_MODE_GROUPS_FILE);
-  return cleanModeGroups.includes(groupId); 
+exports.isCharacterCountActive = (groupId) => {
+  const characterCountGroups = readJSON(Character_count);
+  
+  return characterCountGroups.includes(groupId);
 };
