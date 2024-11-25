@@ -1,5 +1,3 @@
-Aquí te dejo el comando que te pediste:
-```
 const { PREFIX } = require("../../config");
 const { InvalidParameterError } = require("../../errors/InvalidParameterError");
 
@@ -68,5 +66,3 @@ module.exports = {
     await sendReply(`Modo antiflood ${context} con éxito.`);
   },
 };
-```
-Espero que esto sea lo que estabas buscando. ¡Si tienes alguna pregunta o necesitas ayuda adicional, no dudes en preguntar!
