@@ -1,6 +1,6 @@
 const { PREFIX } = require("../../config");
 const { InvalidParameterError } = require("../../errors/InvalidParameterError");
-const { isCharacterCountActive } = require("../../database");
+const { isCharacterCountActive } = require("../../utils/database");
 
 const CHARACTER_LIMIT = 1000;  // Ajusta este límite según lo que consideres apropiado
 
