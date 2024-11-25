@@ -203,20 +203,30 @@ exports.activateCharacterCountGroup = (groupId) => {
   }
 };
 
+exports.activateCharacterCountGroup = (groupId) => {
+  const characterCountGroups = readJSON(CHARACTER_COUNT); 
+  
+  if (!characterCountGroups.includes(groupId)) {
+    characterCountGroups.push(groupId);
+    
+    writeJSON(CHARACTER_COUNT, characterCountGroups); 
+  }
+};
+
 exports.deactivateCharacterCountGroup = (groupId) => {
-  const characterCountGroups = readJSON(Character_count);
+  const characterCountGroups = readJSON(CHARACTER_COUNT); 
   
   const index = characterCountGroups.indexOf(groupId);
   
   if (index !== -1) {
     characterCountGroups.splice(index, 1);
     
-    writeJSON(Character_count, characterCountGroups);
+    writeJSON(CHARACTER_COUNT, characterCountGroups); 
   }
 };
 
 exports.isCharacterCountActive = (groupId) => {
-  const characterCountGroups = readJSON(Character_count);
+  const characterCountGroups = readJSON(CHARACTER_COUNT); 
   
   return characterCountGroups.includes(groupId);
 };
